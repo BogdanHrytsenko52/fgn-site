@@ -1,0 +1,30 @@
+{% extends "faculty/base.html" %}
+{% block title %}Академічний обмін{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Програми академічного обміну</h1>
+    <p class="muted">Перелік доступних програм академічного обміну факультету.</p>
+  </div>
+  {% for exchange in exchanges %}
+    <div class="card">
+      <h2>{{ exchange.university }}</h2>
+      <p><strong>Країна:</strong> {{ exchange.country }}</p>
+      <p><strong>Мови навчання:</strong> {{ exchange.languages }}</p>
+      <p><strong>Кількість місць:</strong> {{ exchange.places }}</p>
+      <p><strong>Дедлайн:</strong> {{ exchange.deadline|date:"d.m.Y" }}</p>
+      <p>
+        <strong>Статус:</strong>
+        {% if exchange.status == "Прийом триває" %}
+          <span style="color: #0b722b; font-weight: bold;">{{ exchange.status }}</span>
+        {% else %}
+          <span style="color: #b31010; font-weight: bold;">{{ exchange.status }}</span>
+        {% endif %}
+      </p>
+      <p>{{ exchange.description }}</p>
+    </div>
+  {% empty %}
+    <div class="card">
+      <p>Наразі програм обміну немає.</p>
+    </div>
+  {% endfor %}
+{% endblock %}
