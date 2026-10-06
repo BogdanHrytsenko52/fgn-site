@@ -1,0 +1,24 @@
+{% extends "faculty/base.html" %}
+{% block title %}Кафедри{% endblock %}
+{% block content %}
+  <h1>Кафедри</h1>
+  {% for department in departments %}
+    <div class="card">
+      <h2>
+        <a href="{% url 'department_detail' department.id %}">{{ department.name }}</a>
+      </h2>
+      <p>
+        <strong>Завідувач:</strong>
+        {{ department.head }}
+      </p>
+      <h3>Випускові спеціальності</h3>
+      {% for program in department.programs.all %}
+        <p>
+          <a href="{% url 'program_detail' program.id %}">{{ program.name }}</a>
+        </p>
+      {% empty %}
+        <p class="muted">Спеціальностей немає.</p>
+      {% endfor %}
+    </div>
+  {% endfor %}
+{% endblock %}
